@@ -22,7 +22,7 @@ object Main extends App {
   val source1: Source[Int, NotUsed] = Source(1 to 10)
   val source2: Source[Int, NotUsed] = Source(10 to 12)
 
-  val factorialFlow: Flow[Int, BigInt, NotUsed] = Flow[Int].scan(BigInt(1))((acc, next) => acc * next)
+  val factorialFlow: Flow[Int, BigInt, NotUsed] = Flow[Int].scan(BigInt(1))(_ * _)
 
   def zippedFactorialFlow(source: Source[Int, NotUsed]): Flow[BigInt, (Int, BigInt), NotUsed] =
     Flow[BigInt].zipWith(source)((num, idx) => (idx, num))
